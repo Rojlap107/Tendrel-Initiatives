@@ -12,7 +12,7 @@
     /* Color Palette */
     --forest-green: #20473b;
     --forest-green-light: #29594a;
-    --golden: #efcd4c;
+    --golden: #c39819;
     --white: #ffffff;
     --black: #000000;
     --gray-light: #f5f5f5;
@@ -80,7 +80,7 @@ a:hover {
 
 /* Navigation */
 .navbar {
-    background-color: transparent;
+    background-color: rgba(250, 250, 250, 0.6);
     position: fixed;
     top: 0;
     left: 0;
@@ -89,9 +89,9 @@ a:hover {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Transparent header on all pages initially */
+/* Header background stays consistent */
 .navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(250, 250, 248, 0.8);
 }
 
 .nav-wrapper {
@@ -119,6 +119,11 @@ a:hover {
     line-height: 1.03;
     text-transform: uppercase;
     letter-spacing: 0.2cap;
+    transition: color 0.3s ease;
+}
+
+.logo-text:hover {
+    color: var(--golden);
 }
 
 .nav-menu {
@@ -464,11 +469,34 @@ a:hover {
     padding: var(--spacing-md);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.pathway-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(32, 71, 59, 0.4);
+    z-index: 1;
+    transition: background-color 0.3s ease;
+}
+
+.pathway-card > * {
+    position: relative;
+    z-index: 2;
 }
 
 .pathway-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(239, 205, 76, 0.3);
+}
+
+.pathway-card:hover::before {
+    background-color: rgba(195, 152, 25, 0.6);
 }
 
 .pathway-number {
@@ -582,6 +610,7 @@ a:hover {
     gap: var(--spacing-lg);
     margin-bottom: var(--spacing-xl);
     align-items: center;
+    scroll-margin-top: 150px;
 }
 
 .pathway-item.reverse {
@@ -801,7 +830,7 @@ a:hover {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--spacing-xl);
     margin-bottom: var(--spacing-lg);
 }
@@ -809,6 +838,7 @@ a:hover {
 .footer-tagline {
     font-style: italic;
     color: var(--white);
+    margin-top: calc(var(--spacing-lg) * -0.5);
     margin-bottom: var(--spacing-md);
     font-size: 1rem;
 }
