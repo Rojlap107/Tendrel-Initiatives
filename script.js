@@ -1,10 +1,10 @@
 // Mobile Navigation Toggle
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
     if (mobileToggle) {
-        mobileToggle.addEventListener('click', function() {
+        mobileToggle.addEventListener('click', function () {
             navMenu.classList.toggle('active');
             this.classList.toggle('active');
         });
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close mobile menu when clicking on a link
     const navLinks = document.querySelectorAll('.nav-menu a');
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             if (window.innerWidth <= 768) {
                 navMenu.classList.remove('active');
                 if (mobileToggle) {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth Scrolling for Anchor Links
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     anchorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href !== '#' && href.length > 1) {
                 const target = document.querySelector(href);
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabContents = document.querySelectorAll('.tab-content');
 
     tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const tabId = this.getAttribute('data-tab');
 
             // Remove active class from all buttons and contents
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form Submission Handlers
     const writeForm = document.getElementById('writeForm');
     if (writeForm) {
-        writeForm.addEventListener('submit', function(e) {
+        writeForm.addEventListener('submit', function (e) {
             e.preventDefault();
             handleFormSubmit(this, 'write');
         });
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const collaborateForm = document.getElementById('collaborateForm');
     if (collaborateForm) {
-        collaborateForm.addEventListener('submit', function(e) {
+        collaborateForm.addEventListener('submit', function (e) {
             e.preventDefault();
             handleFormSubmit(this, 'collaborate');
         });
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
@@ -127,72 +127,95 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Form Submission Handler
-function handleFormSubmit(form, type) {
+async function handleFormSubmit(form, type) {
     const formData = new FormData(form);
     const data = {};
+    formData.forEach((value, key) => data[key] = value);
 
-    formData.forEach((value, key) => {
-        data[key] = value;
-    });
+    const action = form.getAttribute('action');
 
-    console.log(`${type} form submitted:`, data);
-
-    // Display success message
-    const formWrapper = form.parentElement;
-    const successMessage = document.createElement('div');
-    successMessage.className = 'success-message';
-    successMessage.style.cssText = `
-        background-color: #d4edda;
-        color: #155724;
-        padding: 1rem;
-        border-radius: 4px;
-        margin-top: 1rem;
-        text-align: center;
-        font-weight: 600;
-    `;
-
-    if (type === 'write') {
-        successMessage.textContent = 'Thank you for your message! We will get back to you soon.';
-    } else if (type === 'collaborate') {
-        successMessage.textContent = 'Thank you for your collaboration proposal! We will review it and contact you shortly.';
+    // Check if the placeholder is still there
+    if (!action || action.includes('YOUR_FORM_ID')) {
+        alert('Please update the form action in contact.html with your Formspree form ID.');
+        return;
     }
 
-    // Remove any existing success messages
-    const existingMessage = formWrapper.querySelector('.success-message');
-    if (existingMessage) {
-        existingMessage.remove();
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    try {
+        const response = await fetch(action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        const formWrapper = form.parentElement;
+        // Remove any existing messages
+        const existingMessages = formWrapper.querySelectorAll('.success-message, .error-message');
+        existingMessages.forEach(msg => msg.remove());
+
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+        `;
+
+        if (response.ok) {
+            messageDiv.className = 'success-message';
+            messageDiv.style.backgroundColor = '#d4edda';
+            messageDiv.style.color = '#155724';
+
+            if (type === 'write') {
+                messageDiv.textContent = 'Thank you for your message! We will get back to you soon.';
+            } else if (type === 'collaborate') {
+                messageDiv.textContent = 'Thank you for your collaboration proposal! We will review it and contact you shortly.';
+            }
+
+            form.reset();
+        } else {
+            throw new Error('Form submission failed');
+        }
+
+        formWrapper.appendChild(messageDiv);
+
+        // Remove success message after 5 seconds
+        if (response.ok) {
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+    } catch (error) {
+        const formWrapper = form.parentElement;
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'error-message';
+        messageDiv.style.cssText = `
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+        `;
+        messageDiv.textContent = 'Oops! There was a problem submitting your form. Please try again later.';
+        formWrapper.appendChild(messageDiv);
+    } finally {
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
     }
-
-    formWrapper.appendChild(successMessage);
-    form.reset();
-
-    // Remove success message after 5 seconds
-    setTimeout(() => {
-        successMessage.remove();
-    }, 5000);
-
-    // In a real implementation, you would send this data to a server
-    // Example:
-    // fetch('/api/contact', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     console.log('Success:', data);
-    //     // Show success message
-    // })
-    // .catch((error) => {
-    //     console.error('Error:', error);
-    //     // Show error message
-    // });
 }
 
 // Navbar scroll effect - add scrolled class and change background
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
@@ -236,15 +259,15 @@ if ('IntersectionObserver' in window) {
 // Parallax effect removed - hero content stays in place
 
 // Add hover effect enhancement for pathway cards
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const pathwayCards = document.querySelectorAll('.pathway-card');
 
     pathwayCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+        card.addEventListener('mouseenter', function () {
             this.style.borderColor = '#efcd4c';
         });
 
-        card.addEventListener('mouseleave', function() {
+        card.addEventListener('mouseleave', function () {
             this.style.borderColor = '#efcd4c';
         });
     });
