@@ -138,17 +138,18 @@ a:hover {
 }
 
 .nav-menu a {
-    color: #117f7f;
+    color: var(--golden);
     font-weight: 500;
     font-size: 1.3rem;
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1), 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 .nav-menu a:hover,
 .nav-menu a.active {
-    color: var(--golden);
+    color: white;
 }
 
 .mobile-menu-toggle {
@@ -252,7 +253,7 @@ a:hover {
     font-size: 3.5rem;
     color: var(--golden);
     margin-bottom: var(--spacing-sm);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-tagline {
@@ -260,7 +261,6 @@ a:hover {
     color: var(--white);
     margin-bottom: var(--spacing-md);
     letter-spacing: 0.1cap;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-description {
@@ -333,14 +333,13 @@ a:hover {
 .page-hero h1 {
     color: var(--golden);
     font-size: 3rem;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 2px 2px 4px rgba(255, 255, 255, 0.3);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle {
     color: var(--white);
     font-size: 1.5rem;
     font-style: italic;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 2px 2px 4px rgba(255, 255, 255, 0.3);
 }
 
 /* Buttons */
