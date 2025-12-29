@@ -316,7 +316,7 @@ a:hover {
 }
 
 .home-page .hero {
-    background-image: url('img/hero-bg.jpg');
+    /* Video background is now used instead of static image */
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
