@@ -10,14 +10,34 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Dropdown menu functionality for mobile
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function (e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                const dropdown = this.parentElement;
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+
+                // Toggle the dropdown menu
+                if (dropdownMenu) {
+                    dropdownMenu.classList.toggle('mobile-active');
+                }
+            }
+        });
+    });
+
     // Close mobile menu when clicking on a link
     const navLinks = document.querySelectorAll('.nav-menu a');
     navLinks.forEach(link => {
         link.addEventListener('click', function () {
             if (window.innerWidth <= 768) {
-                navMenu.classList.remove('active');
-                if (mobileToggle) {
-                    mobileToggle.classList.remove('active');
+                // Don't close if it's a dropdown toggle
+                if (!this.classList.contains('dropdown-toggle')) {
+                    navMenu.classList.remove('active');
+                    if (mobileToggle) {
+                        mobileToggle.classList.remove('active');
+                    }
                 }
             }
         });
