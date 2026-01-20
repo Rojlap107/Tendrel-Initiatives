@@ -597,6 +597,10 @@ a:hover {
     margin: 0 auto;
 }
 
+.crane-image-wrapper {
+    text-align: center;
+}
+
 .crane-description {
     text-align: center;
 }
@@ -717,6 +721,33 @@ a:hover {
 
 .cta-center {
     text-align: center;
+}
+
+/* About Portal Cards */
+.about-portal-card {
+    padding: var(--spacing-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.about-portal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.about-portal-card h3 {
+    color: var(--white);
+    font-size: 1.25rem;
+    font-weight: normal;
+}
+
+.about-portal-card .pathway-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
 }
 
 /* Founder Section */
@@ -1202,10 +1233,11 @@ a:hover {
         text-align: center;
         font-size: 1.5rem;
         /* Make mobile links slightly larger */
+        color: var(--white);
     }
 
     /* Mobile Dropdown Menu */
-    .nav-menu > li {
+    .nav-menu>li {
         width: 100%;
         display: flex;
         flex-direction: column;
