@@ -257,13 +257,16 @@ window.addEventListener('scroll', function () {
 });
 
 // Add active state to current page in navigation
-const currentLocation = window.location.pathname.split('/').pop() || 'index.html';
+const currentLocation = window.location.pathname.split('/').pop() || '';
 const navLinks = document.querySelectorAll('.nav-menu a');
 
 navLinks.forEach(link => {
     const linkHref = link.getAttribute('href');
+    // Handle clean URLs (without .html extension)
+    const cleanLinkHref = linkHref.replace('.html', '').replace(/^\//, '');
     if (linkHref === currentLocation ||
-        (currentLocation === '' && linkHref === 'index.html')) {
+        cleanLinkHref === currentLocation ||
+        (currentLocation === '' && (linkHref === '/' || linkHref === 'index.html' || linkHref === ''))) {
         link.classList.add('active');
     }
 });
