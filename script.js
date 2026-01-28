@@ -15,13 +15,25 @@ document.addEventListener('DOMContentLoaded', function () {
     dropdownToggles.forEach(toggle => {
         toggle.addEventListener('click', function (e) {
             if (window.innerWidth <= 768) {
-                e.preventDefault();
                 const dropdown = this.parentElement;
                 const dropdownMenu = dropdown.querySelector('.dropdown-menu');
 
-                // Toggle the dropdown menu
-                if (dropdownMenu) {
-                    dropdownMenu.classList.toggle('mobile-active');
+                // Check if dropdown is already open
+                if (dropdownMenu && dropdownMenu.classList.contains('mobile-active')) {
+                    // If already open, allow navigation to landing page
+                    return; // Let the default link behavior work
+                } else {
+                    // First click: open the dropdown
+                    e.preventDefault();
+                    if (dropdownMenu) {
+                        // Close other open dropdowns first
+                        document.querySelectorAll('.dropdown-menu.mobile-active').forEach(menu => {
+                            if (menu !== dropdownMenu) {
+                                menu.classList.remove('mobile-active');
+                            }
+                        });
+                        dropdownMenu.classList.toggle('mobile-active');
+                    }
                 }
             }
         });
