@@ -6,5 +6,5 @@ gem "jekyll", "~> 4.3"
 # Required for Ruby 3.0+
 gem "webrick"
 
-# GitHub Pages compatible plugins (optional)
-# gem "jekyll-seo-tag"
+# Plugins
+gem "jekyll-sitemap"

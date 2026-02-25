@@ -33,14 +33,14 @@ defaults:
     values:
       layout: "default"
 
-# Collections (for Phase 2)
+# Collections
 collections:
   pathways:
     output: true
-    permalink: /pathways/:name
+    permalink: /pathways/:name/
   team:
     output: false
 
-# Plugins (GitHub Pages compatible)
-# plugins:
-#   - jekyll-seo-tag  # Uncomment if SEO tags are needed
+# Plugins
+plugins:
+  - jekyll-sitemap
