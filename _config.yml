@@ -1,0 +1,46 @@
+# Jekyll configuration for TenDrel Initiative
+# ============================================
+
+title: TenDrel Initiative
+description: Where Mind & Media Meet Moral Futures
+url: "https://tendrelinitiative.org"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Keep existing file structure - don't process these
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .gitignore
+  - content/
+  - "*.docx"
+
+# Include hidden files if needed
+include:
+  - .nojekyll
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Collections (for Phase 2)
+collections:
+  pathways:
+    output: true
+    permalink: /pathways/:name
+  team:
+    output: false
+
+# Plugins (GitHub Pages compatible)
+# plugins:
+#   - jekyll-seo-tag  # Uncomment if SEO tags are needed

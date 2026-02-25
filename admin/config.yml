@@ -1,0 +1,206 @@
+# Decap CMS Configuration for TenDrel Initiative
+# ==============================================
+# Documentation: https://decapcms.org/docs/
+
+# Backend configuration
+# IMPORTANT: Update these values with your actual GitHub repository details
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME  # <-- CHANGE THIS (e.g., "tendrel-initiative/website")
+  branch: main
+  base_url: https://api.netlify.com  # For Netlify Identity authentication
+  # Alternative: Use GitHub OAuth App for authentication without Netlify
+  # See: https://decapcms.org/docs/github-backend/
+
+# Local development (uncomment for local testing with npx decap-server)
+# local_backend: true
+
+# Media settings - using existing image folder structure
+media_folder: "img"
+public_folder: "/img"
+
+# Site URL for preview links
+site_url: https://tendrelinitiative.org
+
+# Display URL for the site
+display_url: https://tendrelinitiative.org
+
+# Logo for the CMS interface (optional)
+logo_url: /img/logo.png
+
+# Slug settings
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+# Collections
+collections:
+  # ===========================
+  # PATHWAYS COLLECTION
+  # ===========================
+  - name: "pathways"
+    label: "Pathways"
+    label_singular: "Pathway"
+    folder: "_pathways"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["number", "title"]
+    summary: "{{number}} - {{title}}"
+    fields:
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "pathway"
+
+      - label: "Number"
+        name: "number"
+        widget: "string"
+        hint: "Pathway number (e.g., '01', '02', '03', '04')"
+        pattern: ['^\d{2}$', "Must be a two-digit number like '01'"]
+
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "The pathway title"
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "Brief description of the pathway (shown on listing pages)"
+
+      - label: "Hero Image"
+        name: "image"
+        widget: "image"
+        hint: "Main image for the pathway hero section"
+        media_folder: "/img/tendrel-pathways"
+        public_folder: "/img/tendrel-pathways"
+
+      - label: "Card Icon"
+        name: "icon"
+        widget: "image"
+        hint: "Image used for pathway cards on homepage"
+        media_folder: "/img/tendrel-pathways"
+        public_folder: "/img/tendrel-pathways"
+
+      - label: "Theme Color"
+        name: "color"
+        widget: "color"
+        default: "#c39819"
+        hint: "Color used for this pathway's styling"
+
+      - label: "Navigation Section"
+        name: "nav_section"
+        widget: "hidden"
+        default: "pathways"
+
+      - label: "Navigation Page ID"
+        name: "nav_page"
+        widget: "string"
+        hint: "Used for active navigation highlighting (e.g., 'pathway-01')"
+
+      - label: "Initiatives"
+        name: "initiatives"
+        widget: "list"
+        hint: "Key initiatives or programs under this pathway"
+        fields:
+          - label: "Initiative Title"
+            name: "title"
+            widget: "string"
+          - label: "Initiative Description"
+            name: "description"
+            widget: "text"
+
+  # ===========================
+  # TEAM MEMBERS COLLECTION
+  # ===========================
+  - name: "team"
+    label: "Team Members"
+    label_singular: "Team Member"
+    folder: "_team"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{name}} - {{role}}"
+    fields:
+      - label: "Name"
+        name: "name"
+        widget: "string"
+
+      - label: "Role"
+        name: "role"
+        widget: "string"
+        hint: "Job title or role"
+
+      - label: "Photo"
+        name: "photo"
+        widget: "image"
+        required: false
+        media_folder: "/img/team"
+        public_folder: "/img/team"
+        hint: "Team member photo"
+
+      - label: "Order"
+        name: "order"
+        widget: "number"
+        default: 100
+        hint: "Display order (lower numbers appear first)"
+
+      - label: "Bio"
+        name: "bio"
+        widget: "text"
+        required: false
+        hint: "Short biography"
+
+      - label: "LinkedIn"
+        name: "linkedin"
+        widget: "string"
+        required: false
+        hint: "LinkedIn profile URL"
+
+      - label: "Email"
+        name: "email"
+        widget: "string"
+        required: false
+        hint: "Contact email"
+
+  # ===========================
+  # PAGES (Optional - for editing static pages)
+  # ===========================
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "Home Page"
+        name: "home"
+        file: "index.html"
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+          - label: "Body Class"
+            name: "body_class"
+            widget: "hidden"
+            default: "home-page"
+
+      - label: "About Page"
+        name: "about"
+        file: "about/index.html"
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+          - label: "Navigation Section"
+            name: "nav_section"
+            widget: "hidden"
+            default: "about"
+
+      - label: "Contact Page"
+        name: "contact"
+        file: "contact.html"
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+          - label: "Navigation Section"
+            name: "nav_section"
+            widget: "hidden"
+            default: "contact"

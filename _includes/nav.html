@@ -1,0 +1,36 @@
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="container">
+        <div class="nav-wrapper">
+            <a href="{{ '/' | relative_url }}" class="logo">
+                <img src="{{ '/img/logo.png' | relative_url }}" alt="TenDrel Initiative Logo" class="logo-img">
+                <span class="logo-text">TenDrel<br>Initiative</span>
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <a href="{{ '/about/' | relative_url }}" class="dropdown-toggle{% if page.nav_section == 'about' %} active{% endif %}">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ '/about/statement-of-purpose' | relative_url }}"{% if page.nav_page == 'statement-of-purpose' %} class="active"{% endif %}>Statement of Purpose</a></li>
+                        <li><a href="{{ '/about/founder' | relative_url }}"{% if page.nav_page == 'founder' %} class="active"{% endif %}>About the Founder</a></li>
+                        <li><a href="{{ '/about/meet-the-team' | relative_url }}"{% if page.nav_page == 'meet-the-team' %} class="active"{% endif %}>Meet the Team</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ '/pathways/' | relative_url }}" class="dropdown-toggle{% if page.nav_section == 'pathways' %} active{% endif %}">TenDrel Pathway</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ '/pathways/pathway-01' | relative_url }}"{% if page.nav_page == 'pathway-01' %} class="active"{% endif %}>01. Digital Ecosystems</a></li>
+                        <li><a href="{{ '/pathways/pathway-02' | relative_url }}"{% if page.nav_page == 'pathway-02' %} class="active"{% endif %}>02. Dialogues & Forums</a></li>
+                        <li><a href="{{ '/pathways/pathway-03' | relative_url }}"{% if page.nav_page == 'pathway-03' %} class="active"{% endif %}>03. Research & Knowledge Sharing</a></li>
+                        <li><a href="{{ '/pathways/pathway-04' | relative_url }}"{% if page.nav_page == 'pathway-04' %} class="active"{% endif %}>04. Community Collaborations & Advancement</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ '/contact' | relative_url }}"{% if page.nav_section == 'contact' %} class="active"{% endif %}>Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

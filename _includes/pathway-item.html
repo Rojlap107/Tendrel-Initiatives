@@ -1,0 +1,13 @@
+<div class="pathway-item{% if include.reverse %} reverse{% endif %}" id="{{ pathway.slug | default: pathway.title | slugify }}">
+    <div class="pathway-content">
+        <div class="pathway-header">
+            <span class="pathway-number-large">{{ pathway.number }}</span>
+            <h2>{{ pathway.title }}</h2>
+        </div>
+        <p>{{ pathway.description }}</p>
+        <a href="{{ pathway.url | relative_url }}" class="btn btn-secondary" style="margin-top: 1rem;">Learn More</a>
+    </div>
+    <div class="pathway-image"
+        style="background-image: url('{{ pathway.icon | relative_url }}'); background-size: cover; background-position: center;">
+    </div>
+</div>

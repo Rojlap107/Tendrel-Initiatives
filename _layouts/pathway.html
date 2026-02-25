@@ -1,30 +1,35 @@
 ---
-title: Meet the Team
-nav_section: about
-nav_page: meet-the-team
+layout: default
 ---
 
 <!-- Hero Section -->
 <section class="page-hero">
     <div class="hero-image-wrapper">
-        <img src="{{ '/img/about-bg.jpg' | relative_url }}" alt="Meet the Team" onerror="this.style.display='none'">
-    </div>
-    <div class="page-hero-content">
-        <h1>Meet the Team</h1>
+        <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" onerror="this.style.display='none'">
     </div>
 </section>
 
-<!-- Team Section -->
-<section class="team-section">
+<!-- Pathway Detail Section -->
+<section class="pathway-detail-page">
     <div class="container">
-        <div class="about-intro">
-            <div class="intro-content">
-                <p
-                    style="text-align: center; font-size: 1.2rem; min-height: 200px; display: flex; align-items: center; justify-content: center;">
-                    Information about our team members and collaborators will be added here soon.
-                </p>
-            </div>
+        <div class="pathway-header">
+            <span class="pathway-number-large">{{ page.number }}</span>
+            <h2>{{ page.title }}</h2>
         </div>
+        <div class="pathway-description">
+            <p>{{ page.description }}</p>
+        </div>
+
+        {% if page.initiatives %}
+        <div class="pathway-initiatives">
+            {% for initiative in page.initiatives %}
+            <div class="initiative-card">
+                <h3>{{ initiative.title }}</h3>
+                <p>{{ initiative.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </section>
 
