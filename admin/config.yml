@@ -6,7 +6,7 @@
 # IMPORTANT: Update these values with your actual GitHub repository details
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME  # <-- CHANGE THIS (e.g., "tendrel-initiative/website")
+  repo: Rojlap107/Tendrel-Initiatives
   branch: main
   base_url: https://api.netlify.com  # For Netlify Identity authentication
   # Alternative: Use GitHub OAuth App for authentication without Netlify
