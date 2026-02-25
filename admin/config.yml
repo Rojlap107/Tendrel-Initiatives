@@ -5,12 +5,10 @@
 # Backend configuration
 # IMPORTANT: Update these values with your actual GitHub repository details
 backend:
-  name: github
-  repo: Rojlap107/Tendrel-Initiatives
+  name: git-gateway
   branch: main
-  base_url: https://api.netlify.com  # For Netlify Identity authentication
-  # Alternative: Use GitHub OAuth App for authentication without Netlify
-  # See: https://decapcms.org/docs/github-backend/
+  # Using Netlify Identity + Git Gateway for authentication
+  # Setup: Enable Identity and Git Gateway in Netlify dashboard
 
 # Local development (uncomment for local testing with npx decap-server)
 # local_backend: true
