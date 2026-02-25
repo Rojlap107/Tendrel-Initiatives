@@ -5,8 +5,7 @@
 # Backend configuration
 # IMPORTANT: Update these values with your actual GitHub repository details
 backend:
-  name: github
-  repo: Rojlap107/Tendrel-Initiatives
+  name: git-gateway
   branch: main
 
 # Local development (uncomment for local testing with npx decap-server)
